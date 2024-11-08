@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RealmSwift
+@preconcurrency import RealmSwift
 
 typealias Presistable = Object
 
@@ -64,6 +64,7 @@ actor DbContextImp: @preconcurrency DbContext {
     }
 
     func add<T: Presistable>(_ object: T) async throws {
+        
         try await realm.asyncWrite {
             realm.add(object, update: .modified)
         }
